@@ -7,14 +7,15 @@ public class Solution{
         return result;
     }
     void helper(List<String> inner, String s){
-        if(s.length() == 0){
+        if(s.length() == 0){//still two parts
             result.add(inner);
         }
         for(int i = 0; i < s.length(); i++){
-            if(isPalindrome(s.substring(0,i+1))){
+            if(isPalindrome(s.substring(0,i+1))){//when to add to the List<>, any condition?
                 List<String> temp = new ArrayList<String>(inner);
-                temp.add(s.substring(0,i+1));
-                helper(temp, s.substring(i+1));          
+                temp.add(s.substring(0,i+1));//how/which part to add to the List<>
+                // for this String problem, no need to think the String changes, what really changes is the pointer.
+                helper(temp, s.substring(i+1));//after added, go the the next          
             }
         }
     }
