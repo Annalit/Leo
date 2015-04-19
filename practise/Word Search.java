@@ -1,8 +1,8 @@
 //https://leetcode.com/problems/word-search/
-/*
-@author annabel
-@since  4.18.2015
-*/
+/**
+ *@author annabel
+ *@since  4.18.2015
+ */
 public class Solution {
     Boolean result = false;
 
