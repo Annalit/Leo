@@ -2,3 +2,4 @@
   how to let your current node be there.
 2.The stack doesn't store the whole tree, it is just help you go somewhere.
 3.because you want to go there, you should take care when to push.
+4.when to go back?
