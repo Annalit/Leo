@@ -24,9 +24,6 @@ public class Solution {
             return;
         }
         StringBuffer temp = new StringBuffer(sb);
-        if(temp.toString().equals("0.0.0.")){
-        	int a = 1;
-        }
         temp.append(right[cur]);
         helper(cur+1, temp, right, count);
         
