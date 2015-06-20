@@ -15,7 +15,7 @@ private int helper(TreeNode root)
         int right = helper(root.right);
         int cur = root.val + (left>0?left:0)+(right>0?right:0);
         if(cur>res)
-            res = cur;
-        return root.val+Math.max(left, Math.max(right,0));
+            res = cur; //the max number so far
+        return root.val+Math.max(left, Math.max(right,0));// but return one of the value;
     }
 }
