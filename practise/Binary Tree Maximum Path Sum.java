@@ -11,11 +11,11 @@ private int helper(TreeNode root)
     {
         if(root == null)
             return 0;
-        int left = helper(root.left);
-        int right = helper(root.right);
+        int left = helper(root.left); // for the max number
+        int right = helper(root.right); // for the max number
         int cur = root.val + (left>0?left:0)+(right>0?right:0);
         if(cur>res)
             res = cur; //the max number so far
-        return root.val+Math.max(left, Math.max(right,0));// but return one of the value;
+        return root.val+Math.max(left, Math.max(right,0));// but return either root+left or root+ right;
     }
 }
