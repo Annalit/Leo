@@ -18,7 +18,7 @@ public class Solution {
 }
 // why we need local, because we can discard the previous once we get better, immoral.
 //we can always jugde whether join the futher or go back to the past, if we know which is better.
-// to keep track of how I made all the choices
+// to keep track of how I made all the choices, so that the next time I can made choice based on my previous one
 // get the best one
 public class Solution {
     public int maxProduct(int[] nums) {
