@@ -20,6 +20,8 @@ public class Solution {
 //we can always jugde whether join the futher or go back to the past, if we know which is better.
 // to keep track of how I made all the choices, so that the next time I can made choice based on my previous one
 // get the best one
+
+// whether the new element has some effect on the global? if it is better?
 public class Solution {
     public int maxProduct(int[] nums) {
         int len = nums.length;
