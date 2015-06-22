@@ -16,7 +16,8 @@ public class Solution {
         return max;
     }
 }
-
+// why we need local, because we can discard the previous once we get better, immoral.
+//we can always jugde whether join the futher or go back to the past, if we know which is better.
 public class Solution {
     public int maxProduct(int[] nums) {
         int len = nums.length;
