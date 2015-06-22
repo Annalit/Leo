@@ -32,6 +32,7 @@ public class Solution {
             maxlocal[i] = Math.max(maxlocal[i-1]*nums[i], Math.max(nums[i],minlocal[i-1]*nums[i]));
             minlocal[i] = Math.min(maxlocal[i-1]*nums[i], Math.min(nums[i],minlocal[i-1]*nums[i]));
             max = Math.max(max, maxlocal[i]);
+            // only related to the current element
         }
         return max;
     }
