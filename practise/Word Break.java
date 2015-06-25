@@ -23,7 +23,7 @@ public class Solution {
             return false;
         }
 }
-second time
+TLE
 public class Solution {
     public boolean wordBreak(String s, Set<String> wordDict) {
         int len = s.length();
@@ -51,5 +51,29 @@ public class Solution {
             }
         }
         return check[0][len-1];
+    }
+}
+good
+public class Solution {
+    public boolean wordBreak(String s, Set<String> wordDict) {
+        int len = s.length();
+        if(s == null||len == 0||wordDict == null||wordDict.isEmpty()){
+            return false;
+        }
+        Boolean[] check = new Boolean[len];
+        Arrays.fill(check,false);
+        check[0] = wordDict.contains(s.substring(0,1));
+        for(int i = 1; i < len; i++){
+            for(int j = 0; j < i; j++){
+                String subs = s.substring(j+1,i+1);
+                if((check[j]&&wordDict.contains(subs))||wordDict.contains(s.substring(0,i+1))){
+                    check[i] = true;
+                    break;
+                } else {
+                	continue;
+                }
+            }          
+        }
+        return check[len-1];
     }
 }
