@@ -50,8 +50,9 @@ public class Solution {
         return sb.toString();
     }
 }
-
-pass but low efficiency
+/**
+* pass but low efficiency
+**/
 
 public class Solution {
     ArrayList<List<String>> result = new ArrayList<List<String>>();
