@@ -1,0 +1,89 @@
+转移方程式好像三个青蛙跳一个格子上啊。。孩子可能是很多的。。
+状态的定义一定要弄清楚，特别是走格子的时候，哪个变成哪个。
+
+有时候答案是就是f(i),这样一般就只有一个状态量
+但是有时候答案是从f(i)|0<i<n里面找最大或者最小，这时候一般就有两个状态量，一个全局，一个局部
+其实本质上就是，局部量只是你用来求全局量的
+全局量只能和全局量和局部量相关，
+局部量只能和局部量相关。
+局部量和全局量应该是一同增长的。
+有时候一个问题不好分成子问题，看问题的构造。
+一开始定义全局，看全局的关系，再看需不需要局部。
+
+全局的意思就是按照n的规模来，到n为止。
+和规模n相关
+
+这个想不清楚么
+规模相关
+
+动态规划第一步是看求什么，并使它和n相关。可以试试直接让f(n) = 答案
+动态规划可以解的题目必定是f(n)和f(i)|0<i<n相关的，i可能是一个也可能是多个。f(i)就是子问题。
+unique path:如果 我们让f(m)(n)= 答案，它和f(m-1)(n-1)有什么关系呢
+f(m)(n) = f(m-1)(n)+f(m)(n-1);
+
+Unique Binary Search Trees :如果我们让f(n) = 答案，它和f(i)有关系么
+如果f(3)是1-3，f(2)是1-2， f(3) = root(3)||f(2)+root(2)+root(1);
+这时候发现我们引入了新的状态root(2),那么root(i)和root(i-1)有关系么(0<i<=n)
+那是因为你定义的什么鬼状态，root(2)是root(3)的一部分么。。并没有啊！！！
+root(i)是以i为root，但节点全部由1-n构成。。这样是不对的！因为构造是需要f(n)就能表示从1-n的那个最优值！无后！要和n后面无关！无关知道么！这样构造当然没有子问题！
+在想root‘(i)如果是以i为根节点的二叉树，节点由1-i构成，那root’(i)和root‘(i-1)有关系么
+动态规划里面当f(i)变成f(i-1)的时候，条件的规模也必须变成i-1！
+有啊，root'(i)的左子树就是root’(i-1)!右子树呢！就是root‘[i+1---n];那是个什么鬼。。能和root’(i)扯上关系么
+1，2，3构成的树和4，5，6构成的树，数量上有区别么！
+没有！所以root‘[i+1----n]就是root’[n-i]。。。
+root'(i) = root'(i-1)*root(n-i)要哭了好么。。
+所以f(3) = root(3)||f(2)+root(2)+root(1);这个根本就不对，f(2)不是f(3)的子问题。
+应该f(i) = f(i-1)*f(n-i)
+
+以i为根节点的树，其左子树由[1,i-1]构成，其右子树由[i+1,n]构成，
+
+Unique Binary Search Trees II:这题是构造树啊。。- -怕
+一上来让f(i) = 答案！对！让f(i) = 一棵树 节点是1-i的一棵树！
+f(i)的左子树是f(i-1),右子树i-1到n
+
+Word Break:f(n) = 答案，f(n) 和 f(i)的关系是什么呢
+f(n) = f(i)&&sub(i-n);妈蛋这题和unique二叉树突然发现好像啊-    -
+一开始想的f(n) = f(i)&&f(n-i)然后递归下去，但是这样一个问题就和多个子问题相关了。。还是一个比较好。。
+
+triangle:minimum path sum from top to bottom=f(n)!
+f(i)是当前最小数，f(i) = Math.min(res[i][j]);这道题是一个二维的dp，而 res[i][j]
+res[i][j]是说从1-i,1-j为止的最小吧！
+
+Minimum Path Sum:
+res[i][j] = Math.min(res[i-1][j], res[i][j-1])+ array[i][j]
+Maximum subarray:
+f(i) = max, f(i) = Math.max(f(i-1),res[i])
+res[i] = Math.max(res[i-1],res[i-1]+array[i])
+
+Maximum Product Subarray
+f(i) = max, f(i) = max(f(i-1),res[i]);
+res[i] = Maht.max(res[i-1]*array[i],array[i],min[i-1]*array[i])
+min(i) = Math.min(res[i-1]*array[i],array[i],min[i-1]*array[i]) 
+ 
+
+Maximal Square:
+f(i)(j) = 1-i,1-j，二维规模的全局量。
+f(i)(j) = Math.max(f(i-1)(j),f(i)(j-1),res[i][j])；
+res[i][j] = Math.min(res[i-1][j], res[i][j-1],res[i][j])+1|array[i][j] = 1
+
+Edit Distance
+一开始定义全局，全局就是1-n嘛，
+把这道题根据规模来paraphrase，就是说1-i的String全部转换成1-j的String需要多少步
+f(i)(j) = Min(f(i-1)(j)+1,f(i-1)(j-1)+1,f(i)(j-1)+1)(if (s[i]!=s[j]))
+else f(i)(j) = f(i-1)(j-1);
+其实这道题增删改，就对应左，左上，上三个方向到f(i)(j)的方式，分别是删，换，加。取其最小加一。
+
+一般的动态规划问题都要你自己去找规律吧。。这道题把规律都给你了！自己去找子问题的关系会比较麻烦一点，不过已经告诉你要填表了
+就像已经告诉你i变成j-1是m，那么i变成j是多少呢，这时候感觉已经定了是增加了，所以就是+1了
+但是i变成j有多少种办法呢，找子问题，而且它题目说了从k到k+1的规模有三种方法，取三种方法中最优。
+不仅仅取决[i][j-1]因为也可能[i-1][j-1]然后直接替换呀，它都说了有3种方法了！最优子结构啊！挑最好的！
+
+f[i]是1-i的最大利润
+f[i] = Math.max(f[i-1],array[i]-min[i-1]);
+min[i] = min(min[i-1],array[i])
+
+Best Time to Buy and Sell Stock III
+f[i]是1-i的最大利润
+f[m][n]是从m天到n天的最大利润。m < n
+f[m][n] = Math.max(f[m][k]+f[k+1][n]);
+错啊。。。没有k这个东西啊。。它没说要分开。。
