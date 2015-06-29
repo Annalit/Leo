@@ -1,3 +1,12 @@
+Boolean validate(TreeNode root){
+    return helper(root, null, null);
+}
+Boolean helper(TreeNode root, int min, int max){
+    if((min == null||root.val>min)&&(max==null||root.val<max)){
+        return helper(root.right, root.val, null)&&helper(root.left, null,root.val);
+    } else
+    return false;
+}
 
 //given string and a char array. remove the character in the string if that character exists in the char array.
 
