@@ -1,0 +1,23 @@
+
+//given string and a char array. remove the character in the string if that character exists in the char array.
+
+//Example: String expedia, char array = [a, e, i, o, u]. Result = xpd
+
+public class Solution{
+    public String change(String s, char[] c){
+        HashSet hs = new HashSet();
+        for(int i = 0; i < c.length; i++){
+            hs.add(c[i].tolowercase());
+        }
+        if(s == null||s.length()==0){
+            return "";
+        }
+        StringBuffer sb = new StringBuffer(s);
+        for(int i = sb.length()-1; i >=0 ; i--){
+            if(hs.contains(sb.charAt(i).tolowercase())){
+                sb.remove(sb.charAt(i));
+            }
+        }
+        return sb.toString();
+    }
+}
