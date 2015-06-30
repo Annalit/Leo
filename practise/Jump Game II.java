@@ -50,7 +50,9 @@ beautiful code
 也就是i = curmax+1的时候。
 此时curmax显然马上被赋值为max。所以这道题里面max有一种记录树的宽度的神奇妙用，就像queue的size一样。，
 其实这个地方len不一定能到max，max就像一个完全树一样，不过count记录了它的高度就够了。
-不过其实这里当前层和叶子层唯一可能重叠的地方，也只有len == 1的情况，最后一个代码写的是可以break的
+最后一个代码写的是可以break的
+不过感觉下面这个更好，因为更遵循规律，反正我记录层数，走完一遍返回层数就好啦。
+因为这个count++的规则更好把握。
 public class Solution {
     public int jump(int[] nums) {
         int len = nums.length;
