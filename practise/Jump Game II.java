@@ -48,9 +48,20 @@ beautiful code
 什么时候count++？count是什么，count是层数。
 当从2跳到5的时候，以及4跳到1的时候，也就是说我的当前层发生改变的时候
 也就是i = curmax+1的时候。
-此时curmax显然马上被赋值为max。所以这道题里面max有一种记录树的宽度的神奇妙用，就像queue的size一样。
-其实下一层的宽度是上一层的最大值，
+此时curmax显然马上被赋值为max。所以这道题里面max有一种记录树的宽度的神奇妙用，就像queue的size一样。，
 其实这个地方len不一定能到max，max就像一个完全树一样，不过count记录了它的高度就够了。
+另外，我们一开始我试图
+        if(nums[i] + i >= len - 1){
+            break;
+        }
+        但是你很快会发现这样不行，因为这样会对树的高度有误导，我也许是还在当前层走，然后发现如果按该节点跳最大，
+        也就是下一层可以超过end，
+        也有可能max没有超过当前层。
+        总而言之就是，按规矩全部走完，不要跳。
+因为curmax永远记录的是当前层，而max记录的是这棵树每次规划时的叶子节点。
+可是当前层也可能是叶子节点啊。那么max和curmax就指向同一层了！
+因为这里max和curmax的关系是max>=curmax
+max > curmax的时候才在不同层。
 public class Solution {
     public int jump(int[] nums) {
         int len = nums.length;
