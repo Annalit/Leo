@@ -50,17 +50,7 @@ beautiful code
 也就是i = curmax+1的时候。
 此时curmax显然马上被赋值为max。所以这道题里面max有一种记录树的宽度的神奇妙用，就像queue的size一样。，
 其实这个地方len不一定能到max，max就像一个完全树一样，不过count记录了它的高度就够了。
-另外，我们一开始我试图
-        if(nums[i] + i >= len - 1){
-            break;
-        }
-        但是你很快会发现这样不行，因为这样会对树的高度有误导，我也许是还在当前层走，然后发现如果按该节点跳最大，
-        也就是下一层可以超过end，
-        也有可能max没有超过当前层。
-        总而言之就是，按规矩全部走完，不要跳。
-可是当前层也可能是叶子层啊。那么max和curmax就指向同一层了！
-因为这里max和curmax的关系是max>=curmax
-max > curmax的时候才在不同层。
+不过其实这里当前层和叶子层唯一可能重叠的地方，也只有len == 1的情况，最后一个代码写的是可以break的
 public class Solution {
     public int jump(int[] nums) {
         int len = nums.length;
@@ -71,6 +61,28 @@ public class Solution {
             if(i > upper_breadth){
                 count++;
                 upper_breadth = max;
+            }
+            max = Math.max(max, nums[i] + i);
+        }
+        return count;
+    }
+}
+public class Solution {
+    public int jump(int[] nums) {
+        int len = nums.length;
+        int upper_breadth = 0;
+        int max = 0;
+        int count = 0;
+        if(len == 1)
+            return count;
+        for(int i = 0; i < len; i++){
+            if(i > upper_breadth){
+                count++;
+                upper_breadth = max;
+            }
+            if(nums[i] + i >= len - 1){
+                count++;
+                break;
             }
             max = Math.max(max, nums[i] + i);
         }
