@@ -2,6 +2,34 @@ public class Solution {
     public void sortColors(int[] nums) {
         quickSort(nums, 0, nums.length - 1);
     }
+    void quickSort(int[] nums, int low, int high){
+        if (nums == null || nums.length == 0){
+            return;
+        }
+        if (low >= high){
+            return;
+        }
+        int i = low, j = high;
+        int pivot = nums[i];
+        while (i < j){
+            if (nums[j] >= pivot && i < j){
+                j--;
+            }
+            nums[i] = nums[j];
+            if (nums[i] <= pivot && i < j){
+                i++;
+            }
+            nums[j] = nums[i];
+        }
+        nums[i] = pivot;
+        quickSort(nums, low, i - 1);
+        quickSort(nums, i + 1, high);
+    }
+}
+public class Solution {
+    public void sortColors(int[] nums) {
+        quickSort(nums, 0, nums.length - 1);
+    }
 	public static void quickSort(int[]n ,int left,int right){
 		int pivot;
 		if (left < right) {
@@ -24,40 +52,4 @@ public class Solution {
 		n[left] = pivot;
 		return left;
 	}
-}
-
-public class Solution {
-    public void sortColors(int[] nums) {
-        quickSort(nums, 0, nums.length - 1);
-    }
-    void quickSort(int[] nums, int low, int high){
-        if (nums == null || nums.length == 0)
-            return;
-        if (low >= high){
-            return;
-        }
-        int mid = (low + high) / 2;
-        int pivot = nums[mid];
-        int i = low;
-        int j = high;
-        while (i < j){
-            while (nums[i] < pivot){
-                i++;
-            }
-            while (nums[j] > pivot){
-                j--;
-            }
-            if (i <= j){
-                int temp = nums[i];
-                nums[i] = nums[j];
-                nums[j] = temp;
-                i++;
-                j--;
-            }
-        }
-        if(low < j)
-        quickSort(nums, low, j);
-        if(high > i)
-        quickSort(nums, i, high);
-    }
 }
