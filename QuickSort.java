@@ -12,11 +12,11 @@ public class Solution {
         int i = low, j = high;
         int pivot = nums[i];
         while (i < j){
-            if (nums[j] >= pivot && i < j){
+            while (nums[j] >= pivot && i < j){
                 j--;
             }
             nums[i] = nums[j];
-            if (nums[i] <= pivot && i < j){
+            while (nums[i] <= pivot && i < j){
                 i++;
             }
             nums[j] = nums[i];
@@ -26,6 +26,12 @@ public class Solution {
         quickSort(nums, i + 1, high);
     }
 }
+因为一开始的pivot已经被记录了。
+while里面先把i挖坑，然后把j填进来，然后把j挖坑，把i移过去
+这个地方好像又短路了，其实每次while结束，很明显地发现i都是个坑
+这就是为什么最后可以直接填pivot。
+至于刚刚在纠结的如果相遇的时候比pivot大什么的，其实不用想这个，因相遇的时候的点i走过了！这个点的值已经到了它该去的坑！
+记住从右边开始啊。。。因为左边才有坑填右边的大数。
 public class Solution {
     public void sortColors(int[] nums) {
         quickSort(nums, 0, nums.length - 1);
