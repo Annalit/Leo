@@ -26,3 +26,22 @@ public class Solution{
 
     }
 }
+void helper(int[] array, int curr) {
+    if (curr == array.length) {
+        // print this array on the screen
+        // trivial code. I will omit here
+    }
+    for (int i = curr; i < array.length; ++i) {
+        swap(array[curr], array[i]);
+        helper(array, curr + 1);
+        swap(array[curr], array[i]);
+    }
+}
+
+void permutation(int[] array) {
+    helper(array, 0);
+}
+the array is divided to 2 parts: sorted and unsorted
+stil the same idea, left and right, the left part is the chosen part, the right part is the part to be chosen
+the curr is the division point
+actually the same idea, the for loop is still the right part, the size of the curr can be
