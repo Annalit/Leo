@@ -1,4 +1,57 @@
 Given a sorted array arr[] and a value X, find the k closest elements to X in arr[].  Assuming X might not be in the array.
+public class Solution {
+	public ArrayList<Integer> getK(int[] res, int target, int k) {
+	    ArrayList<Integer> result = new ArrayList<Integer>();
+	    int mid = getIndex(res, target, 0, res.length - 1);
+	    int p = mid - 1;
+	    int q = mid;
+	    while(k > 0 && p > 0 && q < res.length - 1) {
+	        int left = target - res[p];
+	        int right = res[q] - target;
+	        if (left < right) {
+	            result.add(res[p]);
+	            p--;
+	        } else {
+	            result.add(res[q]);
+	            q++;
+	        }
+	        k--;
+	    }
+	    if (k==0) {
+	        return result;
+	    } else {
+	        if(p == 0) {
+	            while(k > 0 && q < res.length - 1) {
+	                result.add(res[q]);
+	                q++;
+	            }
+	        } else {
+	            while(k >0 && p > 0) {
+	                result.add(res[p]);
+	                p--;
+	            }
+	        }
+	        return result;
+	    }
+	}
+	public int getIndex(int[] res, int target, int s, int e) {
+	// if found, return the index of the first element >= target, else get the area and do it recursively until only one element
+	    if (s > e) {
+	        return -1;
+	    } 
+	    int mid = s + (e - s) / 2;
+	    if (target > res[mid]) {
+	        return getIndex(res, target, mid + 1, e);
+	    } else {
+	        int temp = getIndex(res, target, s, mid - 1);
+	        if (temp!= -1) {
+	            return temp;
+	        } else {
+	            return mid;
+	        }
+	    }
+	} 
+下面是第一次写的，不知道是什么鬼。。。
 public class Solution{
     public ArrayList<Integer> getK(int[] arr, int k, int x) {
         ArrayList<Integer> res = new ArrayList<Integer>();
