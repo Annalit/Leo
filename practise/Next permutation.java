@@ -16,7 +16,7 @@
 其实很简单，什么时候存在next permutation，是不是一直都存在呢
 不，54321是没有下一个permutation的
 所以存在permutation的前提是存在顺序对
-然后根据规则，我肯定从后面往前面改，因为我要保证next permutation是所有permutation中比当前数组大的最小值，数字自然从右边改。
+然后根据规则，我肯定从后面往前面改，因为我要保证next permutation是所有permutation中比当前数大的最小值，数字自然从右边改。
 所以首先要找最后一个顺序对，假设是A[i],A[i + 1](这个顺序对的后面都是逆序对）
 只看[i + 1, A.length - 1]这一段是不存在next permutation的，最后一个顺序对的后面肯定都是逆序的，这一块已经饱和了。
 但是因为i和i+1能构成升序对，所以加了A[i]之后整体又存在next permutation了。
