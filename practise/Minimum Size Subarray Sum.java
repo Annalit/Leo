@@ -35,3 +35,31 @@ public class Solution {
         return re == nums.length + 1 ? 0 : re;
     }
 } 
+这个是nlogn的方法:
+public class Solution {
+    public int minSubArrayLen(int s, int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+        int[] res = new int[nums.length];
+        res[0] = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            res[i] = nums[i] + res[i - 1];
+        }
+        int mid = 0;
+        int count = nums.length;
+        for (int i = 0; i < nums.length; i++) {
+        	int p = i, q = nums.length - 1;
+		    while (p <= q) {
+		        mid = p + (q - p) / 2;
+		        if (res[mid] - res[i] + nums[i] >= s) {
+		            q = mid - 1;
+		            count = Math.min(mid - i + 1, count);
+		        } else {
+		            p = mid + 1;
+		        }
+		    }
+        }
+        return count == nums.length? 0: count;
+    } 
+}
