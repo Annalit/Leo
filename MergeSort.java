@@ -12,6 +12,7 @@ merge(arr, s, mid, e);
 然后对于子数组，我又需要它的两个subarray有序。
 递归下去。最后当一个array只有一个元素的时候，显然有序，然后返回该有序数组。
 就是每次需要两个有序的subarray，然后return一个合并之后的有序的subarray。所以每次需要借助merge一次来合并两个有序的subarray。
+T(n)=2T(n/2)+n 复杂度其实是算出来的呀， 你想的那个递归，其实想的是，当前的这个复杂度需要依赖下一层的复杂度的意思啦
 
 public class Solution {
 	public int[] getMergeSort(int[] arr) {
