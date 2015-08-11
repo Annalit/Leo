@@ -1,0 +1,102 @@
+public class Solution {
+    /**
+     * @param nums: A list of integers.
+     * @return: the median of numbers
+     */
+    public int[] medianII(int[] nums) {
+        // write your code here
+        ArrayList<Integer> maxheap = new ArrayList<Integer>();
+        ArrayList<Integer> minheap = new ArrayList<Integer>();
+        if (nums == null || nums.length == 0) {
+            return null;
+        } 
+        int[] res = new int[nums.length];
+        for (int i = 0; i < nums.length; i++) {
+            int cur = nums[i];
+            if (maxheap.size() == 0 || cur < maxheap.get(0)) {
+                maxheap.add(cur);
+                siftup(maxheap, true);
+            } else if (minheap.size() == 0 || cur >= maxheap.get(0)) {
+                minheap.add(cur);
+                siftup(minheap, false);
+            }
+            judgeLength(minheap, maxheap);
+            res[i] = maxheap.get(0);
+        }
+        return res;
+    }
+    void siftup(ArrayList<Integer> heap, boolean maxheap) {
+        int i = heap.size() - 1;
+        while (i > 0) {
+            int p = (i - 1) / 2;
+            if (maxheap && heap.get(i) > heap.get(p) || (!maxheap && heap.get(i) 
+            < heap.get(p))) {
+                int temp = heap.get(i);
+                heap.set(i, heap.get(p));
+                heap.set(p, temp);
+                i = p;
+            } else {
+                break;
+            }
+        }
+    }
+    void judgeLength(ArrayList<Integer> minheap, ArrayList<Integer> maxheap) {
+        int max_len = maxheap.size();
+        int min_len = minheap.size();
+        if (max_len - min_len > 1) {
+            minheap.add(maxheap.get(0));
+            siftup(minheap, false);
+            maxheap.set(0, maxheap.get(maxheap.size() - 1));
+            maxheap.remove(maxheap.size() - 1);
+            siftdown_max(maxheap, 0);
+        } else if (min_len - max_len > 0) {
+            maxheap.add(minheap.get(0)); 
+            siftup(maxheap,true);
+            minheap.set(0, minheap.get(minheap.size() - 1));
+            minheap.remove(minheap.size() - 1);
+            siftdown_min(minheap, 0);
+        }
+    }
+    void siftdown_max(ArrayList<Integer> heap, int i) {
+    	int size = heap.size();
+        int max = i;
+        int left = 2 * i + 1;
+        int right = 2 * i + 2;
+        if (left < size && heap.get(left) > heap.get(max)) {
+            max = left;
+        }
+        if (right < size && heap.get(right) > heap.get(max)) {
+            max = right;
+        }
+        if (max == i) {
+            return;
+        } else {
+            int temp = heap.get(i);
+            heap.set(i, heap.get(max));
+            heap.set(max, temp);
+            i = max;
+            siftdown_max(heap, i);
+        }
+    }
+      void siftdown_min(ArrayList<Integer> heap, int i) {
+    	int size = heap.size();
+        int min = i;
+        int left = 2 * i + 1;
+        int right = 2 * i + 2;
+        if (left < size && heap.get(left) < heap.get(min)) {
+            min = left;
+        }
+        if (right < size && heap.get(right) < heap.get(min)) {
+            min = right;
+        }
+        if (min == i) {
+            return;
+        } else {
+            int temp = heap.get(i);
+            heap.set(i, heap.get(min));
+            heap.set(min, temp);
+            i = min;
+            siftdown_min(heap, i);
+        }
+    }
+}
