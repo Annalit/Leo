@@ -1,0 +1,55 @@
+public class Solution {
+	public int bigDiff(int[] arr) {
+		if (arr == null || arr.length == 0) {
+			return Integer.MIN_VALUE;
+		}
+		int len = arr.length;
+		int res = Integer.MIN_VALUE;
+		int[] sum = new int[len];
+		sum[0] = arr[0];
+		Comparator<Integer> max_comparator = new CompareMax();
+		Comparator<Integer> min_comparator = new CompareMin();
+		PriorityQueue<Integer> leftmax = new PriorityQueue<Integer>(len,
+				max_comparator);
+		PriorityQueue<Integer> rightmax = new PriorityQueue<Integer>(len,
+				max_comparator);
+		PriorityQueue<Integer> leftmin = new PriorityQueue<Integer>(len,
+				min_comparator);
+		PriorityQueue<Integer> rightmin = new PriorityQueue<Integer>(len,
+				min_comparator);
+		// add right to right queue
+		for (int i = 1; i < len; i++) {
+			sum[i] = sum[i - 1] + arr[i];
+		}
+		for (int i = 0; i < len; i++) {
+			int cur = arr[i];
+			rightmax.add(cur);
+			rightmin.add(cur);
+		}
+		for (int i = 0; i < len; i++) {
+			int cur = arr[i];
+			leftmax.add(cur);
+			leftmin.add(cur);
+			int premax = leftmax.peek();
+			int premin = leftmin.peek();
+			if (rightmax.peek() == cur) {
+				rightmax.poll();
+			}
+			if (rightmin.peek() == cur) {
+				rightmin.poll();
+			}
+			int posmax = rightmax.peek();
+			int posmin = rightmin.peek();
+			int left1 = sum[cur] - sum[premax] + arr[premax];
+			int left2 = sum[cur] - sum[premin] + arr[premin];
+			int right1 = sum[posmax] - sum[cur];
+			int right2 = sum[posmin] - sum[cur];
+			int ans1 = Math.abs(right1 - left1);
+			int ans2 = Math.abs(right1 - left2);
+			int ans3 = Math.abs(right2 - left1);
+			int ans4 = Math.abs(right2 - left2);
+			int temp = Math.max(ans1, Math.max(ans2, Math.max(ans3, ans4)));
+			res = Math.max(res, temp);
+		}
+		return res;
+	}
