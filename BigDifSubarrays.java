@@ -1,4 +1,39 @@
+2.Given an array of integers. Find two disjoint contiguous subarrays in it such that the absolute value of the difference between the sums of two subarray is maximum. Return the maximum difference. For example:
+Array: {1, -3, 1, -4, 3, 4}
+Result subarrays: {-3, 1, -4}, {3, 4}
+Maximum difference = 13
+
+
+
+
 public class Solution {
+	public int bigDif(int[] arr) {
+    	int len = arr.length;
+    	int[] preMin = new int[len];
+	    int[] preMax = new int[len];
+	    int[] posMin = new int[len];
+	    int[] posMax = new int[len];
+	    preMin[0] = arr[0];
+	    preMax[0] = arr[0];
+	    posMin[len - 1] = arr[len - 1];
+	    posMax[len - 1] = arr[len - 1];
+
+    	int max = Integer.MIN_VALUE;
+    	for (int i = 1; i < len; i++) {
+    	preMax[i] = Math.max(preMax[i - 1] + arr[i], arr[i]);
+	    preMin[i] = Math.min(preMin[i - 1] + arr[i], arr[i]);
+	    }
+	    for (int i = len - 2; i >= 0; i--) {
+	    	posMax[i] = Math.max(posMax[i + 1] + arr[i], arr[i]);
+	    	posMin[i] = Math.min(posMin[i + 1] + arr[i], arr[i]);
+	    }
+	    for (int i = 0; i < len - 1; i++) {
+	    	max = Math.max(max, Math.max(preMax[i] - posMin[i + 1], posMax[i + 1] - preMin[i]));
+	    }
+	    return max;
+    }
+    下面这个方法好像有bug。。但是思路应该没有大问题。
+    public class Solution {
 	public int bigDiff(int[] arr) {
 		if (arr == null || arr.length == 0) {
 			return Integer.MIN_VALUE;
