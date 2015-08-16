@@ -8,6 +8,8 @@
 但是不是叶子节点又不能两个孩子全都加val + ->, 因为如果左孩子不存在，其实左边这条路就不用管了。
 所以需要两个if来判断该方向的孩子是否存在。
 特殊情况就是一个节点，根节点也是叶子节点，是符合我们的算法的。所以这个方法是非常合理的。
+这题怎么想到用叶子节点分的，
+因为到叶子节点就必须输出了，特殊情况下只有一个节点，此时是val，如果是正确的算法， 叶子也都应该是val
 public class Solution {
     ArrayList<String> res = new ArrayList<String>();
     public List<String> binaryTreePaths(TreeNode root) {
