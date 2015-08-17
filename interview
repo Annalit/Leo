@@ -11,5 +11,5 @@
 继承一个抽象类，自动继承所有的实现的方法，但需要实现里面的抽象方法。
 这样就不用重新实现那个已经实现的方法了。
 抽象类用来继承的时候，可以强制子类去不一样地实现一个方法，还可以让子类继承一样的方法。
-
+http://www.javacoffeebreak.com/faq/faq0084.html
 记得研究一下defaul method 和abstrac method 在interface里面的定义的区别。
