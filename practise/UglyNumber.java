@@ -52,6 +52,7 @@ public class Solution {
 	所以可以考虑把整个queue放到priorityqueue里面去维护，然后这样我们就可以按照大小顺序来取出里面的数，而不是按照放入顺序。
 	所以这道题为什么用prioriyqueue，是因为我选择的优先条件是大小而不是顺序，其次是因为，这题确实可以用queue来实现BFS的。
 	然后每次要返回的数其实就是queue.poll啦，顺便可以poll掉，因为每次需要的就是堆顶的元素。
+	其实这道题本质就是一个按照大小来遍历的BFS。。
 	然后改成了这样：
 	public class Solution {
 	public int nthUglyNumber(int n) {
