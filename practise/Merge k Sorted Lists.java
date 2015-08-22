@@ -105,6 +105,7 @@ public class Solution {
         算法上并没有什么过于复杂的地方。
         对了，就是给cur.next赋值的时候，别弄一个方法的局部变量，我们需要的是一个新的节点。。因为方法的局部变量的话，它其实是一直
         会变的。。大囧-     -
+        也就是说我每次我新建一个链表，其实这个链表里面的每一个节点都应该是相当于新建出来的。
         ListNode fakehead = new ListNode(-1);
         ListNode cur = fakehead;
         while (!queue.isEmpty()) {
