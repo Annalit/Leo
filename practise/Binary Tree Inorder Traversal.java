@@ -39,3 +39,30 @@ public class Solution {
     }
     
 }
+public class Solution {
+    /**
+     * @param root: The root of binary tree.
+     * @return: Inorder in ArrayList which contains node values.
+     */
+    public ArrayList<Integer> inorderTraversal(TreeNode root) {
+        // write your code here
+        Stack<TreeNode> stack = new Stack<TreeNode>();
+        ArrayList<Integer> res = new ArrayList<Integer>();
+        //use a stack to track the trace of the last root, when the current root
+        // is null, then make current root to the pop(), when the current root and the stack are both empty, then it is the end.
+        // 1. if the current root is null but stack is not, then we can assign
+        //2. if the stack is not null but cur is not, it is still possible for the stack to have value in the future.
+        // no need to be afraid that the root may lose track
+        while (!stack.isEmpty() || root != null) {
+            if (root == null) {
+                root = stack.pop();
+                res.add(root.val);
+                root = root.right;
+            } else {
+                stack.push(root);
+                root = root.left;
+            }
+        }
+        return res;
+    }
+}
