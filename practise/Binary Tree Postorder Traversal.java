@@ -72,3 +72,4 @@ public class Solution {
         return res;
     }
 }
+// better to define TreeNode cur = root and then use cur instead.
