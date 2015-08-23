@@ -66,3 +66,5 @@ public class Solution {
         return res;
     }
 }
+// comments: better to define TreeNode cur = root, and then use cur; otherwise even the res is right, but we still lose the track
+// of this tree
