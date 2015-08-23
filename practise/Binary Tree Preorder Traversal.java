@@ -50,12 +50,13 @@ public class Solution {
         while(cur != null || !s.isEmpty()) {
             if (cur == null) {
                 cur = s.pop();
+            } else {
+               res.add(cur.val);
+               if (cur.right != null) {
+                   s.push(cur.right);
+               }
+               cur = cur.left;
             }
-            res.add(cur.val);
-            if (cur.right != null) {
-                s.push(cur.right);
-            }
-            cur = cur.left;
         }
         return res;
     }
