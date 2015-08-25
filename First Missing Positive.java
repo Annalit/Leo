@@ -19,7 +19,9 @@
          我们让这些值和数组下标一一对应不就好了么！因为左边有负数的存在，可以直接让x 对应 x + lenOfNegative
          然后第一个不是对应的下标，- lenOfNegative 其实就是我们要找的数了。。
          当然我觉得好像负数全部赶到右边好一些，我试试~
-         其实就是把每个数根据塞到hashtable里面去。但是因为是数组，所以用swap来实现。不过注意的是，swap之后当前值就已经改变了。。。
+         其实就是把每个数根据塞到hashtable里面去。但是因为是数组，所以用swap来实现。不过注意的是，swap之后当前值就已经改变了。
+         如果当前值已经满足hash了，不用swap
+         如果当前值和要swap的值相等，也不用swap。。
 public class Solution {
     public int firstMissingPositive(int[] nums) {
         int len = nums.length;
