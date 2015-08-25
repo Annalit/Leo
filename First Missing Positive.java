@@ -19,4 +19,44 @@
          我们让这些值和数组下标一一对应不就好了么！因为左边有负数的存在，可以直接让x 对应 x + lenOfNegative
          然后第一个不是对应的下标，- lenOfNegative 其实就是我们要找的数了。。
          当然我觉得好像负数全部赶到右边好一些，我试试~
+         其实就是把每个数根据塞到hashtable里面去。但是因为是数组，所以用swap来实现。不过注意的是，swap之后当前值就已经改变了。。。
+public class Solution {
+    public int firstMissingPositive(int[] nums) {
+        int len = nums.length;
+        int p = len - 1;
+        int q = len - 1; // the last positive, if q < 0, no positve
+        while (p >= 0) {
+            if (nums[p] <= 0) {
+                swap(nums, p, q);
+                p--;
+                q--;
+            } else {
+                p--;
+            }
+        }
+        if (q < 0) {
+            return 1;
+        }
+        len = q + 1;
+        for (int i = 0; i < len; i++) {// should be replaced with nums[cur - 1];
+            if (nums[i] > len) {
+                continue;
+            } else if (i != nums[i] - 1 && nums[i] != nums[nums[i] - 1]){
+                swap(nums, i, nums[i] - 1);
+                i--;
+            }
+        }
+        for (int i = 0; i < len; i++) {
+            if (nums[i] != i + 1) {// should be i + 1, so this is what is missing
+                return i + 1;
+            }
+        }
+        return len + 1;
+    }
+    public void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+}
         
