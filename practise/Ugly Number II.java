@@ -58,3 +58,50 @@ public class Solution {
 我们不需要明显的列表，但是我们需要记录cur最后一次是乘以几得来的。其实可以用一个HashMap? 
 但是那跟HashSet有什么区别啊，我总要额外空间的啊
 我觉得比hashset用的额外空间还大一些。-     -
+一开始觉得一定要用priorityqueue，然后写了如下代码，用了3个priorityqueue，不过速度确实快很多就是了。
+public class Solution {
+    public int nthUglyNumber(int n) {
+        Comparator<Long> compareMin = new ComparatorMin();
+        PriorityQueue<Long> l2 = new PriorityQueue<Long>(n, compareMin); 
+        PriorityQueue<Long> l3 = new PriorityQueue<Long>(n, compareMin); 
+        PriorityQueue<Long> l5 = new PriorityQueue<Long>(n, compareMin);
+        l2.add((long)1);
+        long cur = Long.MAX_VALUE;
+        for (int i = 0; i < n; i++) {
+            cur = Long.MAX_VALUE;
+            if (l2.peek() != null && l2.peek() < cur) {
+                cur = l2.peek();
+            } 
+            if (l3.peek() != null && l3.peek() < cur) {
+                cur = l3.peek();
+            }  
+            if (l5.peek() != null && l5.peek() < cur) {
+                cur = l5.peek();
+            }
+            if (cur == l2.peek()) {
+                l2.poll();
+                l2.add(cur * 2);
+                l3.add(cur * 3);
+                l5.add(cur * 5);
+            } else if (cur == l3.peek()) {
+                l3.poll();
+                l3.add(cur * 3);
+                l5.add(cur * 5);
+            } else {
+                l5.poll();
+                l5.add(cur * 5);
+            }
+        }
+        return (int)cur;
+    }
+}
+class ComparatorMin implements Comparator<Long>{
+    public int compare(Long cur, Long parent) {
+        //return (int) (cur - parent);
+        if (cur > parent) {
+            return 1;
+        } else {
+            return -1;
+        }
+    }
+}
