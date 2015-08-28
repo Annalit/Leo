@@ -123,3 +123,32 @@ public class Solution {
     }
 }
 // better to define TreeNode cur = root and then use cur instead.
+push元素的时候一定要记得判断是否为空！
+public class Solution {
+    /**
+     * @param root: The root of binary tree.
+     * @return: Postorder in ArrayList which contains node values.
+     */
+    public ArrayList<Integer> postorderTraversal(TreeNode root) {
+        // write your code here
+        // left, right, root
+        // root, right, left, then pop
+        Stack<TreeNode> stack = new Stack<TreeNode>();
+        Stack<TreeNode> temp = new Stack<TreeNode>();
+        ArrayList<Integer> res = new ArrayList<Integer>();
+        while (!stack.isEmpty() || root != null) {
+            if (root != null) {
+                temp.push(root);
+                if (root.left != null)
+                    stack.push(root.left);
+                root = root.right;
+            } else {
+                root = stack.pop();
+            }
+        }
+        while (!temp.isEmpty()){
+            res.add(temp.pop().val);
+        }
+        return res;
+    }
+}
