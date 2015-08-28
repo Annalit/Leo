@@ -100,3 +100,32 @@ public class Solution {
 就用queue想的话，可以去记录一个当前的最大值，如果没有超过最大值就不用扩展了，如果超过了最大值，就在最大值之后扩展。
 其实要是实现起来不用queue，直接用数组也是ok的
 待会想
+public class Solution {
+    public int jump(int[] nums) {
+        Queue<Integer> queue = new LinkedList<Integer>();
+        int len = nums.length;
+        queue.add(0);
+        int depth = -1;
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            depth++;
+            int maxindex = queue.peek() + 1;
+            while (size > 0){
+                int cur = queue.poll();
+                if (nums[cur] + cur >= len - 1) {
+                    return depth + 1;
+                }
+                for (int i = maxindex; i <= nums[cur] + cur; i++) {
+                    queue.add(i);
+                }
+                maxindex = nums[cur] + cur;
+                size--;
+        }
+    }
+    return -1;
+    }
+}
+这个代码lintcode过了但是leetcode没有过，可能复杂度还是高了，
+if (nums[i] + i >= len - 1) {
+        return depth + 2;
+}后来加上这个可能会好一些，不过还是过不了。时间复杂度是N吧。。为什么慢了呢
