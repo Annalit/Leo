@@ -88,3 +88,15 @@ public class Solution {
 	    preorder(hm, count + 1, root.left);
 	    preorder(hm, count, root.right);
 	}
+这里 
+if (!hm.containsKey(count)) {
+	        hm.put(count, root.val);
+	    } else {
+	        hm.put(count, hm.get(count) + root.val);
+	    }
+	    放在哪里其实无所谓的，因为说到底只是一个顺序的问题，改变count是因为count表示距离，
+	    你要是想left的时候改。。你怎么改。。。
+	    先处理哪个节点都无所谓。。
+	    这里还是蛮神奇的，因为一个传下去hashmap的时候都是空，但是返回的过程中开始填
+	    另一种是传下去的hashmap就开始填
+	    但是对于每一root而言，其实状态是唯一的。
