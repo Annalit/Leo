@@ -58,3 +58,33 @@ public class Solution {
 		hm.put(root, count);
 		inorder(root.right, hm, count);
 	}
+	这样写简单很多了。。
+public class Solution {
+	public ArrayList<Integer> dotted(TreeNode root) {
+	    // we can try the inorder travesal first
+	    // so we need a hashmap to store the count for each node
+	    HashMap<Integer, Integer> hm = new HashMap<Integer, Integer>();
+	    ArrayList<Integer> res = new ArrayList<Integer>();
+	    preorder(hm, 0, root);
+	    ArrayList<Integer> index = new ArrayList<Integer>(hm.keySet());
+	    Collections.sort(index);
+	    for (int i = 0; i < index.size(); i++) {
+	        res.add(hm.get(index.get(i)));
+	    }
+	    
+	    return res;
+	    
+	}
+
+	void preorder(HashMap<Integer, Integer> hm, int count, TreeNode root) {
+	    if (root == null) {
+	        return;
+	    }
+	    if (!hm.containsKey(count)) {
+	        hm.put(count, root.val);
+	    } else {
+	        hm.put(count, hm.get(count) + root.val);
+	    }
+	    preorder(hm, count + 1, root.left);
+	    preorder(hm, count, root.right);
+	}
