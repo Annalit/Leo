@@ -129,3 +129,29 @@ public class Solution {
 if (nums[i] + i >= len - 1) {
         return depth + 2;
 }后来加上这个可能会好一些，不过还是过不了。时间复杂度是N吧。。为什么慢了呢
+如果接下来我们不用queue的话其实应该也不麻烦，用一个size表现当前层的最远值，用一个max表示下一层的最远值，好像蛮明晰的
+public class Solution {
+    public int jump(int[] nums) {
+        int curlast = -1; // the current size
+        int nextlast = -1;// the next max;
+        int templast = 0;
+        int len = nums.length;
+        int level = -1; // next level
+        if (nums.length == 1) {
+            return 0;
+        }
+        while (nextlast < len) {
+            curlast = nextlast;
+            nextlast = templast;
+            templast = 0;
+            level++;
+            for (int i = curlast + 1; i <= nextlast; i++) {
+                if (nums[i] + i >= len - 1) {
+                    return level + 1;
+                }
+                templast = Math.max(templast, nums[i] + i);
+            }
+        }
+        return -1;
+    }
+}
