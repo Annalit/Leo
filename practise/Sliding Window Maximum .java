@@ -34,3 +34,4 @@ public class Solution {
 The above algorithm could be proven to have run time complexity of O(n). 
 This is because each element in the list is being inserted and then removed at most once.
 Therefore, the total number of insert + delete operations is 2n.
+http://articles.leetcode.com/2011/01/sliding-window-maximum.html
