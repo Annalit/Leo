@@ -1,3 +1,8 @@
+view的题目感觉基本上还是要用先序遍历来做，因为涉及到一个全局变量，当前root当前处理完应该是最好的。
+当我们是rightView的时候，先序遍历满足一个到右下角。
+topView的时候开始涉及一个left和right，left和right用先序遍历来改变是最好的。因为我如果用中序遍历，
+访问到当前的时候就没有超过了啊-    -。
+bottomView也应该是线序遍历，我想想。
 public class Solution {
 	int left = 0;
 	int right = 0;
@@ -41,11 +46,6 @@ public class Solution {
 		TreeNode a12 = new TreeNode(1);
 		a8.left = a10;
 		a10.left = a11;
-		//a11.left = a12;
-		//a11.left = a12;
-		TreeNode a = new TreeNode(1);
-		TreeNode b = new TreeNode(2);
-		TreeNode c = new TreeNode(3);
 		a.left = b;
 		a.right = c;
 		a1.left = a2;
@@ -56,7 +56,6 @@ public class Solution {
 		a2.right = a5;
 		a5.left = a8;
 		a6.right = a9;
-		int[] test = {1,0};
 		System.out.print(s.topView(a1).toString());
 
 	}
