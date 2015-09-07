@@ -61,3 +61,43 @@ public class Solution {
 
 	}
 }
+这样就可以实现逆序输出了。
+public class Solution {
+	int left = 0;
+	int right = 0;
+	int breakPoint = 0;
+	public ArrayList<Integer> topView(TreeNode root) {
+		ArrayList<Integer> res = new ArrayList<Integer>();
+		//HashMap<Integer, Integer> res = new HashMap<Integer, Integer>();
+		inorder(root, 0, res);
+		int s = 0; int e = breakPoint - 1; 
+		while (s < e) {
+			int temp = res.get(s);
+			res.set(s, res.get(e));
+			res.set(e, temp);
+			s++;
+			e--;
+		} 
+		return res;
+	}
+
+	void inorder(TreeNode root, int count, ArrayList<Integer> res ) {
+		if (root == null) {
+			return;
+		}// left: count --, right: count++;
+		//inorder(root.left, count - 1, res);
+		if (right == 1) {
+			breakPoint = res.size() - 1;
+		}
+		if (count < left || count > right|| (count == left && count == right)) {
+			res.add(root.val);
+			if (count < left) {
+				left = count;
+			} else {
+				right = count;
+			}
+		}
+		inorder(root.left, count - 1, res);
+		inorder(root.right, count + 1, res);
+	}
+
