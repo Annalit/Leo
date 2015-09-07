@@ -99,4 +99,42 @@ public class Solution {
 		inorder(root.left, count - 1, res);
 		inorder(root.right, count + 1, res);
 	}
+// bottom view
+public Pair(int x, int y) {
+	this.x = x;
+	this.y = y;
+}
+public class Solution {
+	int breakPoint = 0;
+	public ArrayList<Integer> bottomView(TreeNode root) {
+		ArrayList<Integer> res = new ArrayList<Integer>();
+		HashMap<Integer, ArrayList<Integer>> hm = new HashMap<Integer, ArrayList<Integer>>();// left to int
+		HashSet<Pair> hs = new HashSet<Pair>();
+		inorder(root, 0,0, hm, hs);
+		ArrayList<Integer> sortedKeys = new ArrayList<Integer>(hm.keySet());
+		Collections.sort(sortedKeys);
+		for (int i:sortedKeys){
+			for (int j: hm.get(i))
+			res.add(j);
+		}
+		return res;
+	}
 
+	void inorder(TreeNode root, int x, int y, HashMap<Integer, ArrayList<Integer>> hm, HashSet<Pair> hs) {
+		if (root == null) {
+			return;
+		}
+		Pair cur = new Pair(x, y);
+		if (hs.contains(cur)) {
+			ArrayList<Integer> temp = hm.get(x);
+			temp.add(root.val);
+			hm.put(x, temp);
+		} else {
+			ArrayList<Integer> temp = new ArrayList<Integer>();
+			temp.add(root.val);
+			hm.put(x, temp);
+			hs.add(cur);
+		}
+		inorder(root.left, x - 1, y + 1, hm, hs);
+		inorder(root.right, x + 1, y + 1, hm, hs);
+	}
