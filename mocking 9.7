@@ -1,0 +1,39 @@
+Q1. One traveler travels among cities. He has to pay for this while he can get some incomes.
+Now there are n cities, and the traveler has m days for traveling. Everyday he may go to another city or stay there and pay some money. When he come to a city ,he can get some money. Even when he stays in the city, he can also get the next day's income. All the incomes may change everyday. The traveler always starts from city 1.
+Now is your turn to find the best way for traveling to maximize the total income.
+
+The input is two matrix, the first is an n * n matrix, the j integer in the i line is the expense of traveling from city i to city j. If i equals to j it means the expense of staying in the city.
+
+The second is m * n matrix, the j integer in the i line means the income from city j in the i day.
+
+public class Solution {
+	int maxIncome(int n, int m, int[][] costs, int[][] incomes) {
+		int max = Integer.MIN_VALUE;
+		int[][] profits = new int[m][n]; // 
+		for (int i = 0; i < n; i++) {
+			profits[0][i] = incomes[0][i] - costs[0][i];
+		}
+		for (int i = 1; i < m; i++) {
+			for (int j = 0; j < n; j++) {
+					int premax = Integer.MIN_VALUE;
+			for (int k = 0; k < n; k++) {
+					premax = Math.max(premax, profits[i - 1][k] - costs[k][j]);
+			}
+			profits[i][j] = premax+ incomes[i][j];
+			max = Math.max(max, profits[i][j]);
+			//System.out.println(Arrays.deepToString(profits)+ "\n");
+	}
+}	
+	return max;
+}
+profits[i][j] defines the max total profits from day 1 to day i when the traveller arrives city j at the day i;
+//max profits would be from profits[i] (i from 1… m);
+profits[i][j] = max{profits[i - 1][x] - costs[x][j] | 1 <= x <= n} + incomes[i][j];
+profits[0][0] = income[0][0] - costs[0][0];
+做dp的时候一开始一定要根据要求的东西抓住状态定义。
+然后再写方程。
+
+Q2. Consider a tree T with N nodes numbered 1...N. Deleting any node from the tree yields a forest: a collection of one or more trees. Define the balance of a node to be the size of the largest tree in the forest T created by deleting that node from T.  For each input tree, calculate the node that has the minimum balance. If multiple nodes have equal balance, output the one with the lowest number. 
+
+input: N - 1 pairs that are the endpoints of an edge in the tree. No edge will be listed twice, and all edges will be listed.
+output：pair containing two integers, the number of the node with minimum balance and the balance of that node.
