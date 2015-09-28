@@ -63,3 +63,78 @@ public class Solution {
 		return left;
 	}
 }
+这个下面是用多线程写的快排。。QuickSorter left = new QuickSorter(numbers, start, pivot,threshold);这个地方不能用pivot - 1..不深究
+了。。出来了就行了。。反正也会忘
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.concurrent.*;
+import java.util.*;
+
+public class QuickSorter extends RecursiveAction {
+	int[] numbers;
+	int start;
+	int end;
+	int threshold;
+
+	public QuickSorter(int[] nums, int start, int end, int threshold) {
+		numbers = nums;
+		this.start = start;
+		this.end = end;
+		this.threshold = threshold;
+	}
+
+	@Override
+	protected void compute() {
+		// TODO Auto-generated method stub
+		if (end - start < threshold) {
+			Arrays.sort(numbers, start, end);
+			return;
+		}
+		int pivot = partition(numbers, start, end);
+		QuickSorter left = new QuickSorter(numbers, start, pivot,threshold);
+		QuickSorter right = new QuickSorter(numbers, pivot + 1, end,threshold);
+		left.fork();
+		right.compute();
+		left.join();
+	}
+
+	public int partition(int[] n, int left, int right) {
+		int pivot = n[left];
+		while (left < right) {
+			while (left < right && n[right] >= pivot)
+				--right;
+			n[left] = n[right];
+			while (left < right && n[left] <= pivot)
+				++left;
+			n[right] = n[left];
+		}
+		n[left] = pivot;
+		return left;
+	}
+
+	public static void main(String args[]) {
+		FileInputStream file = null;
+		Scanner scanner = null;
+		/* The method below is complete. */
+			try {
+				file = new FileInputStream(args[0]);
+				scanner = new Scanner(file);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		int threshold = new Integer(args[1]);
+		ArrayList<Integer> res = new ArrayList<Integer>();
+		while (scanner.hasNext()) {
+			res.add(scanner.nextInt());
+		}
+		int[] nums = new int[res.size()];
+		for (int i = 0; i < res.size(); i++) {
+			nums[i] = res.get(i);
+		}
+		ForkJoinPool f = new ForkJoinPool();
+		f.invoke(new QuickSorter(nums, 0, res.size() - 1,threshold));
+		System.out.print(Arrays.toString(nums));
+	}
+}
