@@ -88,7 +88,7 @@ public class QuickSorter extends RecursiveAction {
 	protected void compute() {
 		// TODO Auto-generated method stub
 		if (end - start < threshold) {
-			Arrays.sort(numbers, start, end);
+			Arrays.sort(numbers, start, end + 1);
 			return;
 		}
 		int pivot = partition(numbers, start, end);
