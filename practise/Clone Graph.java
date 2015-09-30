@@ -12,6 +12,13 @@ dfs的时候我们只需要node和hashmap，然后在hashmap里面对val(node)�
 因为深度优先本身，如果遍历过一个点，那么这个点已经遍历完了。
 你只需要把这个点加到该加的neighbor里面去，而不需要去遍历它。
 map这里就是来管遍历的！
+__________________________
+其实这道题的遍历的操作就只是
+将node的所有的neighbor copy到root的所有的neighbor里面。
+我们要控制的只是遍历node的方式，因为不希望重复。
+所以我们用一个map来管理重复。
+如果是DFS,用递归控制遍历方向，用map筛选出下一次递归的点。
+如果是BFS，用queue控制遍历方向，用map筛选出加入到queue里面的点。
 
 /**
  * Definition for undirected graph.
