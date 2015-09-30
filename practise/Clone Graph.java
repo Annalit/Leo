@@ -8,6 +8,10 @@ dfs的时候我们只需要node和hashmap，然后在hashmap里面对val(node)�
 如果hashmap包含这个neighbor，说明已经被拷贝过了。
 然后这个node的neibor全部拷贝一遍。。
 这个地方用hashmap的目的是什么？
+有个点要注意，就是如果我一个点已经遍历过了，我是不用再去遍历一遍的。
+因为深度优先本身，如果遍历过一个点，那么这个点已经遍历完了。
+你只需要把这个点加到该加的neighbor里面去，而不需要去遍历它。
+map这里就是来管遍历的！
 
 /**
  * Definition for undirected graph.
