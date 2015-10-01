@@ -22,3 +22,45 @@ topological sort其实完成了directed acyclic gragh(有向无环图)的判定�
 
 另一种算法是time stamp，时间戳记。
 在进入dfs的过程中，我们会进入一个点，在该点停留一段时间，在这段期间会拜访所有的该点的子孙们，离开该点
+
+所以这里用一个course数组来记录每一门课的入度值。
+其实这里是可以用map的，但是因为题目里面说There are a total of n courses you have to take, labeled from 0 to n - 1.
+所以用数组就够了！
+然后按照算法来，如果每一个点都可以在queue里面走一遍，就说明是没有环的。
+因为如果有的点没有进入queue，说明那么他们一定存在入度，那么久一定有环。
+所以用一个计数器记录一共有多少个点，然后看是否相等。
+public class Solution {
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        if (prerequisites == null) {
+            return false;
+        }
+        int len = prerequisites.length;
+        if (numCourses == 0 || len == 0) {
+            return true;
+        }
+        int[] pCounter = new int[numCourses];
+        for (int i = 0; i < len; i++) {
+            pCounter[prerequisites[i][0]]++;
+        }
+        LinkedList<Integer> queue = new LinkedList<Integer>();
+        for (int i = 0; i < numCourses; i++) {
+            if (pCounter[i] == 0) {
+                queue.add(i);// no prequsite
+            }
+        }
+        int numNoPre = queue.size();
+        while(!queue.isEmpty()) {
+            int top = queue.remove();
+            for (int i = 0; i < len; i++) {
+                if (prerequisites[i][1] == top) {
+                    pCounter[prerequisites[i][0]]--;
+                    if (pCounter[prerequisites[i][0]] == 0) {
+                        numNoPre++;
+                        queue.add(prerequisites[i][0]);//
+                    }
+                }
+            }
+        }
+        return numNoPre == numCourses;
+    }
+}
