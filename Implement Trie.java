@@ -5,6 +5,7 @@
 直接将val作为key.
 所以孩子就变成了一个hashmap
 所以孩子不是一个链表而是一个关系，或者说其实还是一个链表，引起这个链表只是通过值跟他对应而已。
+其实数组什么的，本质也都是一个hashmap吧。
 
 class TrieNode {
     // Initialize your data structure here.
