@@ -1,4 +1,38 @@
-
+还是有初始化的版本最舒服了。。
+public class Solution {
+    /**
+     * @param m: An integer m denotes the size of a backpack
+     * @param A: Given n items with size A[i]
+     * @return: The maximum size
+     */
+    public int backPack(int m, int[] A) {
+        // write your code here
+        // define: dp[i][j] means the max size we can fill in the size j backpack from the the first i items.
+        //dp[i][j] = Math.max(dp[i - 1][j - A[i]] + A[i],dp[i - 1][j]) 
+        //if backpack size < A[0], is 0
+        //
+        int max = -1;
+        int[][] dp = new int[A.length][m + 1]; 
+        for (int i = 0; i < m; i++) {
+            if (A[0] < i) {
+                dp[0][i] = A[0];
+            } else {
+                dp[0][i] = 0;
+            }
+        }
+        for (int i = 1; i < A.length; i++) {
+            for (int j = 1; j < m + 1; j++) {
+                if (j >= A[i]) {
+                    dp[i][j] = Math.max(dp[i - 1][j - A[i]] + A[i],dp[i - 1][j]);
+                } else {
+                    dp[i][j] = dp[i - 1][j];
+                }
+                max = Math.max(dp[i][j], max);
+            }
+        }
+        return max;
+    }
+}
 public class Solution {
     /**
      * @param m: An integer m denotes the size of a backpack
