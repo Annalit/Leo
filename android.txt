@@ -1,0 +1,20 @@
+关于安卓适配器的理解。
+就像电源适配器的目标是把要输入的电流转换成电脑可以接受的电流。
+安卓适配器的目的是把我要输入的数据转换成View可以显示的数据。
+
+如果没有适配器，View就需要去关心大量的底层数据，但是这些数据又是同一种格式显示的。
+所以我们的View应该是ListView，然后用适配器将一个个item填充到ListView来。
+我们其实是在一个View中使用了另一个View~
+至于中间的item到底是什么样的数据类型都是适配器去完成的事情。
+所以你会发现adapter的构造函数里面应该要填的东西是
+1.所有的item
+2.item的view
+适配器做的事情就好像：
+for(i : item) {
+  item.view = view;
+}
+然后，List.view.setAdapter(adater)
+
+for(i : item) {
+  ListView.add(item);
+}
